@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- spring整合mybatis时，MyBatis的全局配置文件中的内容可以配置到SqLSessionFactoryBean中。 -->
+    <!-- settings标签配置。 -->
+    <settings>
+        <!-- 开启驼峰命名规则自动映射功能，这样SQL语句跟java类的属性不一致时也不需要给SQL语句的字段取别名。  -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+</configuration>

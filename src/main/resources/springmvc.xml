@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd
+       http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+    <!-- 这里是做授权的配置。auto-config="true”自动配置。框架会自动生成默认登录页面，并且提供默认的登录url(默认是"/login")，以及注销url(默认是"/logout")。
+    对http请求进行权限控制，security:intercept-url设置拦截的url地址。
+     pattern="/**"是对所有的http请求的网址进行拦截控制。
+     use-expressions="true"这个是允许设置表达式。如果不配置表达式，就直接写角色access="ROLE_ADMIN"。
+     access="hasRole('ROLE_ADMIN’) and hasRole('ABC')”，这个是权限控制表达式。有这个'ROLE_ADMIN'角色的用户，就可以访问所有资源。否则报403错误，拒绝访问。-->
+    <security:http auto-config="true">
+        <security:intercept-url pattern="/**" access="ROLE_ADMIN"></security:intercept-url>
+    </security:http>
+
+    <!--这里是做认证的配置。security:authentication-manager是认证管理。 -->
+    <security:authentication-manager alias="authenticationManager"/>
+
+    <!-- security:authentication-provider这个是认证提供者。认证方式有很多种，所以需要不同的认证提供者进行系统认证。
+    security:user-service是基于数据库的认证方式，或在配置文件中定义国定的账号进行认证。
+    设置用户的账号和密码，并且给用户授子权限。authorities是设置角色的权限。-->
+    <security:authentication-provider>
+        <security:user-service>
+            <security:user name="admin" password="admin" authorities="ROLE_ADMIN"></security:user>
+        </security:user-service>
+    </security:authentication-provider>
+</beans>
