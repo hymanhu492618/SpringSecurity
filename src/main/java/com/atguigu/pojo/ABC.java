@@ -11,6 +11,6 @@ package src.main.java.com.atguigu.pojo;
  */
 public class ABC {
     public static void main(String[] args) {
-        System.out.println("这个是dev分支的代码");
+        System.out.println("这个是master分支的代码");
     }
 }
